@@ -36,7 +36,7 @@ describe('doStuffByTimeout', () => {
     doStuffByTimeout(timeoutCallback, timeout);
 
     expect(setTimeout).toHaveBeenCalledTimes(1);
-    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), timeout);
+    expect(setTimeout).toHaveBeenLastCalledWith(timeoutCallback, timeout);
   });
 
   test('should call callback only after timeout', () => {
@@ -70,10 +70,7 @@ describe('doStuffByInterval', () => {
     doStuffByInterval(intervalCallback, interval);
 
     expect(setInterval).toHaveBeenCalledTimes(1);
-    expect(setInterval).toHaveBeenLastCalledWith(
-      expect.any(Function),
-      interval,
-    );
+    expect(setInterval).toHaveBeenLastCalledWith(intervalCallback, interval);
   });
 
   test('should call callback multiple times after multiple intervals', () => {
@@ -81,7 +78,7 @@ describe('doStuffByInterval', () => {
 
     expect(intervalCallback).not.toHaveBeenCalled();
     jest.advanceTimersByTime(interval * intervalCallsNum);
-    expect(intervalCallback).toHaveBeenCalledTimes(5);
+    expect(intervalCallback).toHaveBeenCalledTimes(intervalCallsNum);
   });
 });
 
